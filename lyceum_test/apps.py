@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DataConfig(AppConfig):
+class LyceumTestConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'data'
+    name = 'lyceum_test'
