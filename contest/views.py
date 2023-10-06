@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Contest, UserContestAnswer
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 from django import forms
 import os
 from django.views.decorators.csrf import csrf_exempt
@@ -55,7 +56,7 @@ def get_answer_status(request, answer_id):
 
 # @csrf_exempt
 def main(request):
-    about_contest = Contest.objects.all()
+    about_contest = Contest.objects.filter(Q(for_everyone=True) | Q(special_for_users=request.user))
     contests = []
     for contest in about_contest:
         contests.append({
