@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Ваш код: </h6>
+    <pre>
+        <code>
+{{ code }}
+        </code>
+      </pre>
+      <hr>
+    <h3>Информация:</h6>
+        Статус: {{ short_status}} 
+        <hr>
+        Подробный статус: {{ large_status}}
+
+{% endblock %}

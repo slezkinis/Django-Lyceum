@@ -25,11 +25,12 @@ SECRET_KEY = 'django-insecure-i^zl6tox_sqq&j_oa^o*a$v0zz&29d^*=7d01wc)pp!51)y9im
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['1200-94-29-124-12.ngrok-free.app']
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+CSRF_TRUSTED_ORIGINS = ['https://1200-94-29-124-12.ngrok-free.app']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -118,7 +119,7 @@ TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Задания</h1>
+    <hr>
+    <table class="table table-responsive">
+      <tr>
+          <th>Название</th>
+          <th>Ссылка</th>
+      </tr>
+      {% for contest in contests %}
+        <tr>
+          <td>{{contest.title}}</td>
+          <td><a href="{{contest.link}}">Ссылка</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+{% endblock %}

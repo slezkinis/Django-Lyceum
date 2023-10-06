@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{name}}</h1>
+    <h5>{{description}}</h5>
+    {% if user.is_authenticated %}
+        <form action="./{{id}}" method="post">
+            <h6>Введи свой код:</h6>
+            <hr>
+            {% for field in form %}
+                <div>
+                    {{ field }}
+                    </script>
+                </div>
+            {% endfor %}
+            {% csrf_token %}
+            <input type="submit" value="Отправить">
+        </form>
+        {% if answer %}
+            <hr>
+            <h6>Вердикт</h6>
+            
+            {% if answer == "OK" %}
+                <div class="alert alert-success" role="alert">{{answer}}</div>
+            {% else %}
+                <div class="alert alert-danger" role="alert">{{answer}}</div>
+
+            {% endif %}
+        {% endif %}
+        <hr>
+        <h6>Прошлые посылки</h6>
+        <table class="table table-responsive">
+            <tr>
+                <th>ID</th>
+                <th>Время</th>
+                <th>Статус</th>
+                <th>Код</th>
+            </tr>
+            {% for contest_answer in user_answers %}
+            <tr>
+                <td>{{contest_answer.id}}</td>
+                <td>{{contest_answer.time}}</td>
+                <td>{{contest_answer.status}}</td>
+                <td><a href="{{contest_answer.code_link}}">Ссылка</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                Чтобы продолжить решение войдите или зарегестрируйстесь
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'login' %}">Войти</a> |
+                <a href="{% url 'register' %}">Зарегестрироваться</a>
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}

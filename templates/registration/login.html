@@ -10,9 +10,14 @@
 
     <form action="{% url 'login' %}" method="post">
     {{ form }}
+    <!-- {% for field in form %}
+        <div>
+            {{ field.label_tag }}  {{ field }}
+        </div>
+        <p></p>
+    {% endfor %} -->
     {% csrf_token %}
-    <button type="submit" class="btn btn-success">submit</button>
+    <button type="submit" class="btn btn-success">Войти</button>
     </form>
 
-    <a href="{% url 'password_reset' %}">Forgot password?</a>
 {% endblock %}
