@@ -56,7 +56,10 @@ def get_answer_status(request, answer_id):
 
 # @csrf_exempt
 def main(request):
-    about_contest = Contest.objects.filter(Q(for_everyone=True) | Q(special_for_users=request.user))
+    if not request.user.is_authenticated:
+        about_contest = Contest.objects.filter(for_everyone=True)
+    else:
+        about_contest = Contest.objects.filter(Q(for_everyone=True) | Q(special_for_users=request.user))
     contests = []
     for contest in about_contest:
         contests.append({

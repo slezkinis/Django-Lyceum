@@ -8,7 +8,6 @@ except:
 
 def test_function(function, params, output):
     reload(data.solution)
-    print(eval(f'data.solution.{str(function) + str(params)}'))
     assert eval(f'data.solution.{str(function) + str(params)}') == eval(output)
 
 
