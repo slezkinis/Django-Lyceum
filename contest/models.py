@@ -7,14 +7,14 @@ class Contest(models.Model):
     name = models.CharField('Название', max_length=100)
     description = models.TextField('Описание')
     for_everyone = models.BooleanField('Публичный ли контест:', default=True)
-    special_for_users = models.ManyToManyField(User, verbose_name='Если приватный, то для кого:', related_name='contest', blank=True, null=True)
+    special_for_users = models.ManyToManyField(User, verbose_name='Если приватный, то для кого:', related_name='contest', blank=True)
 
     def __str__(self) -> str:
         return self.name
 
 
 class UserContestAnswer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers', verbose_name='Пользователь')
     contest = models.ForeignKey(Contest, on_delete=models.CASCADE, verbose_name='Задание')
     code = models.TextField('Код')
     short_status = models.CharField('Статус', default='OK', max_length=50)

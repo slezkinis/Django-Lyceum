@@ -3,6 +3,9 @@
 {% block content %}
     <h1>{{name}}</h1>
     <h5>{{description}}</h5>
+    <hr>
+    <h5>Ограничение по времени: 3 сек.</h5>
+    <hr>
     {% if user.is_authenticated %}
         <form action="./{{id}}" method="post">
             <h6>Введи свой код:</h6>
