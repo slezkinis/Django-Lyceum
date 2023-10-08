@@ -12,7 +12,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             "--contest",
-            help="По определённому контесту",
+            help="Id контеста",
             type=int
         )
         parser.add_argument(
@@ -23,7 +23,14 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         path = options['path']
-        all_contests = Contest.objects.all()
+        selected_contest = options['contest']
+        if selected_contest:
+            all_contests = Contest.objects.filter(id=selected_contest)
+            if not len(all_contests):
+                print(f"[!] Error! Контест с ID {selected_contest} не найден")
+                return
+        else:
+            all_contests = Contest.objects.all()
         all_users = User.objects.all()
         for contest in all_contests:
             try:
@@ -40,18 +47,17 @@ class Command(BaseCommand):
                     print(f"[!] Warning! Папка {path + (contest.name).replace(' ', '_')}/{user.username} уже существует")
                 all_contest_answers = user.answers
                 for contest_answer in all_contest_answers.all():
+                    try:
+                        os.mkdir(f"{path + (contest.name).replace(' ', '_')}/{user.username}/{contest.name}_{contest_answer.short_status}_{contest_answer.id}")
+                    except FileExistsError:
+                        print(f"[!] Warning! Папка {path + (contest.name).replace(' ', '_')}/{user.username}/{user.username}/{contest.name}_{contest_answer.short_status}_{contest_answer.id} уже существует")
                     about_contest_answer = {
-                        'code': contest_answer.code,
                         'short_status': contest_answer.short_status,
                         'big_status': contest_answer.big_status,
                         'send_at': contest_answer.time.strftime('%Y-%m-%d %H:%M')
                     }
-                    with open(f"{path + (contest.name).replace(' ', '_')}/{user.username}/{contest.name}_{contest_answer.short_status}_{contest_answer.id}.json", 'w') as file:
+                    with open(f"{path + (contest.name).replace(' ', '_')}/{user.username}/{contest.name}_{contest_answer.short_status}_{contest_answer.id}/info.json", 'w') as file:
                         json.dump(about_contest_answer, file, indent=2)
-                    # except FileExistsError:
-                    #     print(f"[!] Warning! Файл {path + (contest.name).replace(' ', '_')}/{user.username}/{contest.name}_{contest_answer.short_status}_{contest_answer.id}.json уже существует")
-                    #     os.remove(f"{path + (contest.name).replace(' ', '_')}/{user.username}/{contest.name}_{contest_answer.short_status}_{contest_answer.id}.json")
-                    #     with open(f"{path + (contest.name).replace(' ', '_')}/{user.username}/{contest.name}_{contest_answer.short_status}_{contest_answer.id}.json", 'w') as file:
-                    #         json.dump(about_contest_answer, file, indent=2)
-
+                    with open(f"{path + (contest.name).replace(' ', '_')}/{user.username}/{contest.name}_{contest_answer.short_status}_{contest_answer.id}/main.py", "w") as file:
+                        file.write(contest_answer.code)
 

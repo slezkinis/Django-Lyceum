@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Contest, UserContestAnswer
+from .models import Contest, UserContestAnswer, ContestTest
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django import forms
@@ -38,12 +38,26 @@ def show_test(request, task_id):
             os.remove('data/solution.py')
     form = Contest_Check()
     answers = []
+    first_test = ContestTest.objects.filter(contest=contest).first()
+    enter_data = first_test.input
+    result_data = first_test.answer
     if request.user.is_authenticated:
         user_answers = UserContestAnswer.objects.filter(user=request.user, contest=contest)
         answers = []
         for contest_answer in user_answers[::-1]:
             answers.append({'id': contest_answer.id, 'time': contest_answer.time.strftime('%Y-%m-%d %H:%M'), 'status': contest_answer.short_status, 'code_link': f'/answer/{contest_answer.id}'})
-    return render(request, 'contest.html', context={'id': task_id, 'name': contest.name, 'description': contest.description, 'form': form, 'answer': answer[0], 'user_answers': answers})
+    return render(request, 'contest.html', context={
+        'id': task_id,
+        'name': contest.name,
+        'description': contest.description,
+        'type_input_data': contest.input_data,
+        'type_output_data': contest.output_data,
+        'example_input_data' : enter_data,
+        'example_output_data': result_data,
+        'form': form,
+        'answer': answer[0],
+        'user_answers': answers
+    })
 
 
 # @csrf_exempt

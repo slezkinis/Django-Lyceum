@@ -6,6 +6,8 @@ from django.utils import timezone
 class Contest(models.Model):
     name = models.CharField('Название', max_length=100)
     description = models.TextField('Описание')
+    input_data = models.TextField('Входные данные (описание)', null=True)
+    output_data = models.TextField('Результат (описание)', null=True)
     for_everyone = models.BooleanField('Публичный ли контест:', default=True)
     special_for_users = models.ManyToManyField(User, verbose_name='Если приватный, то для кого:', related_name='contest', blank=True)
 
