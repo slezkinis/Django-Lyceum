@@ -40,7 +40,10 @@ def start_test(function, output):
     import data.solution
     reload(data.solution)
     # # print(eval(f'data.solution.{str(function)[:len(function) - 1]}'))
-    assert eval(f'data.solution.{function}') == eval(output)
+    if output is None:
+        assert eval(f'data.solution.{function}') is output
+    else:
+        assert eval(f'data.solution.{function}') == eval(output)
     # # print(1)
 
 

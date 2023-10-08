@@ -3,19 +3,21 @@
 {% block content %}
     <h1>Login</h1>
     <hr>
+    {{ form.non_field_errors }}
 
-    {% if form.errors %}
+    <!-- {% if form.errors %}
         <p>{{ form.errors.error }}</p>
-    {% endif %}
+    {% endif %} -->
 
     <form action="{% url 'login' %}" method="post">
-    {{ form }}
-    <!-- {% for field in form %}
+    <!-- {{ form }} -->
+    {% for field in form %}
+        <p>{{ field.errors }}</p>
         <div>
             {{ field.label_tag }}  {{ field }}
         </div>
         <p></p>
-    {% endfor %} -->
+    {% endfor %}
     {% csrf_token %}
     <button type="submit" class="btn btn-success">Войти</button>
     </form>

@@ -41,8 +41,8 @@ class ContestTest(models.Model):
         ('none', 'None')
     )
     contest = models.ForeignKey(Contest, on_delete=models.CASCADE, verbose_name='Задание', related_name='tests')
-    input = models.TextField('Ввод', blank=True)
-    answer = models.CharField('Ответ', max_length=100, blank=True)
+    input = models.TextField('Ввод', blank=True, null=True)
+    answer = models.TextField('Ответ', blank=True, null=True)
 
     def __str__(self) -> str:
         return f'{self.contest.name}_test_{self.id}'

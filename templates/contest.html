@@ -24,7 +24,6 @@
             {% for field in form %}
                 <div>
                     {{ field }}
-                    </script>
                 </div>
             {% endfor %}
             {% csrf_token %}
@@ -55,7 +54,7 @@
                 <td>{{contest_answer.id}}</td>
                 <td>{{contest_answer.time}}</td>
                 <td>{{contest_answer.status}}</td>
-                <td><a href="{{contest_answer.code_link}}">Ссылка</a></td>
+                <td><a href="{{contest_answer.code_link}}">Перейти</a></td>
             </tr>
             {% endfor %}
         </table>

@@ -22,7 +22,7 @@ def show_test(request, task_id):
         form = Contest_Check(request.POST)
         if form.is_valid():
             # Form fields passed validation
-            code = form.cleaned_data['code'].replace('input()', '')
+            code = form.cleaned_data['code'].replace('input', '').replace('os', '')
             with open('data/solution.py', 'w') as file:
                 file.write(code)
             import data.test        

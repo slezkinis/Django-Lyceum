@@ -25,12 +25,12 @@ SECRET_KEY = 'django-insecure-i^zl6tox_sqq&j_oa^o*a$v0zz&29d^*=7d01wc)pp!51)y9im
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['1200-94-29-124-12.ngrok-free.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['4d43-2a00-1370-8178-7795-592d-960f-f9aa-a96e.ngrok-free.app', 'localhost', '127.0.0.1']
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-CSRF_TRUSTED_ORIGINS = ['https://1200-94-29-124-12.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://4d43-2a00-1370-8178-7795-592d-960f-f9aa-a96e.ngrok-free.app']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
