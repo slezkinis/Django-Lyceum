@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Contest, UserContestAnswer, ContestTest
+from .models import Contest, UserContestAnswer, ContestTest, ContestGroup
 from django.contrib.admin import ModelAdmin
+from django.urls import reverse
 # from adminsortable2.admin import SortableAdminBase, SortableStackedInline
 
 
@@ -11,7 +12,7 @@ class ContestInline(admin.TabularInline):
 
 @admin.register(Contest)
 class ContestAdmin(ModelAdmin):
-    fields = ('name', 'description', 'input_data', 'output_data', 'for_everyone', 'special_for_users', 'id')
+    fields = ('name', 'description', 'input_data', 'output_data', 'type_programm', 'timeout', 'for_everyone', 'special_for_users', 'id')
     readonly_fields = ('id', )
     inlines = [
         ContestInline
@@ -34,3 +35,14 @@ class UserContestAnswerAdmin(ModelAdmin):
 class Contest_TestAnswerAdmin(ModelAdmin):
     list_filter=('contest', )
 
+@admin.register(ContestGroup)
+class ContestGroupAdmin(ModelAdmin):
+    search_fields=['name']
+    fields = ('name', 'contests', 'text_to_users', 'id', 'customer_link')
+    readonly_fields = ('id', 'customer_link')
+
+    def id(self, obj):
+        return obj.id
+
+    def customer_link(self, obj):
+        return u'{0}'.format(reverse('group', args=(obj.id, )))

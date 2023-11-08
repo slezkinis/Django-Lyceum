@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Contest, UserContestAnswer, ContestTest
+from .models import Contest, UserContestAnswer, ContestTest, ContestGroup
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django import forms
@@ -22,7 +22,8 @@ def show_test(request, task_id):
         form = Contest_Check(request.POST)
         if form.is_valid():
             # Form fields passed validation
-            code = form.cleaned_data['code'].replace('input()', '').replace('exit()', '')
+            code = form.cleaned_data['code']
+            #.replace('input()', '')
             with open('data/solution.py', 'w') as file:
                 file.write(code)
             import data.test        
@@ -55,6 +56,7 @@ def show_test(request, task_id):
         'example_input_data' : enter_data,
         'example_output_data': result_data,
         'form': form,
+        'timeout': contest.timeout,
         'answer': answer[0],
         'user_answers': answers
     })
@@ -81,3 +83,13 @@ def main(request):
             'link': f'task/{contest.id}'
         })
     return render(request, 'all_contests.html', context={'contests': contests})
+
+def show_contest(request, group_id):
+    group = get_object_or_404(ContestGroup, id=group_id)
+    contests = []
+    for contest in group.contests.all():
+        contests.append({
+            'title': contest.name,
+            'link': f'../task/{contest.id}'
+        })
+    return render(request, 'all_contests.html', context={'contests': contests, 'text': group.text_to_users, 'name': group.name})

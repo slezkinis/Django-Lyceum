@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 test/
 tmp/
+test_code.py
 # C extensions
 *.so
 data/solution.py

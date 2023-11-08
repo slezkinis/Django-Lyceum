@@ -12,8 +12,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             "--contest",
-            help="Id контеста",
-            type=int
+            help="Id контеста (можно несколько через ,)",
         )
         parser.add_argument(
             "--path",
@@ -23,9 +22,9 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         path = options['path']
-        selected_contest = options['contest']
+        selected_contest = options['contest'].split(',')
         if selected_contest:
-            all_contests = Contest.objects.filter(id=selected_contest)
+            all_contests = Contest.objects.filter(id__in=selected_contest)
             if not len(all_contests):
                 print(f"[!] Error! Контест с ID {selected_contest} не найден")
                 return

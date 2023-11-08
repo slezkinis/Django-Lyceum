@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if not name %}
     <h1>Задания</h1>
+    {% else %}
+    <h1>Контест {{name}}</h1>
+    <hr>
+    <h5>Описание</h5>
+    {{text}}
+    {% endif %}
     <hr>
     <table class="table table-responsive">
       <tr>

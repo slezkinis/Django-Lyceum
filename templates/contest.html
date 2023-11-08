@@ -2,21 +2,21 @@
 
 {% block content %}
     <h1>{{name}}</h1>
-    <h6>{{description}}</h6>
+    <h6>{{description | linebreaksbr}}</h6>
 
     <h3>Формат входных данных</h3>
-    <h6>{{ type_input_data }}</h6>
+    <p>{{ type_input_data | linebreaksbr}}</p>
 
     <h3>Формат результата</h3>
-    <h6>{{ type_output_data }}</h6>
+    <p>{{ type_output_data | linebreaksbr}}</p>
     <hr>
     <h3>Примеры</h5>
     <h5>Входные данные</h5>
-    {{ example_input_data }}
+    <p>{{ example_input_data | linebreaksbr}}</p>
     <h5>Результат работы</h5>
-    {{ example_output_data }}
+    <p>{{ example_output_data | linebreaksbr}}</p>
     <h1></h1>
-    <h5>Ограничение по времени: 3 сек.</h5>
+    <h5>Ограничение по времени: {{ timeout }} сек.</h5>
     <hr>
     {% if user.is_authenticated %}
         <form action="./{{id}}" method="post">
