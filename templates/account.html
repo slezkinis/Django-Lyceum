@@ -2,8 +2,23 @@
 
 {% block content %}
     <h1>Аккаунт</h1>
+    {% if user.is_authenticated %}
     <hr>
-    
+    <h3>Доступные контесты</h3>
+    <table class="table table-responsive">
+        <tr>
+            <th>Название</th>
+            <th>Ссылка</th>
+        </tr>
+        {% for group in groups %}
+          <tr>
+            <td>{{group.name}}</td>
+            <td><a href="{{group.url}}">Перейти</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+    <hr>
     {% if user.is_authenticated %}
         <a href="{% url 'logout' %}">Выйти</a>
     {% else %}

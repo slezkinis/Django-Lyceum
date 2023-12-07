@@ -61,7 +61,8 @@ class ContestGroup(models.Model):
     name = models.CharField('Название', max_length=100)
     contests = models.ManyToManyField(Contest, verbose_name='Задания', blank=True)
     text_to_users = models.TextField('Напутственное слово:', default='Не переживай! Удачи)')
-
+    special_for_users = models.ManyToManyField(User, verbose_name='Для кого:', related_name='can_view_group', blank=True)
+    
     def __str__(self) -> str:
         return self.name
 

@@ -38,7 +38,7 @@ class Contest_TestAnswerAdmin(ModelAdmin):
 @admin.register(ContestGroup)
 class ContestGroupAdmin(ModelAdmin):
     search_fields=['name']
-    fields = ('name', 'contests', 'text_to_users', 'id', 'customer_link')
+    fields = ('name', 'contests', 'text_to_users', 'special_for_users', 'id', 'customer_link')
     readonly_fields = ('id', 'customer_link')
 
     def id(self, obj):

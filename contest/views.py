@@ -93,3 +93,14 @@ def show_contest(request, group_id):
             'link': f'../task/{contest.id}'
         })
     return render(request, 'all_contests.html', context={'contests': contests, 'text': group.text_to_users, 'name': group.name})
+
+
+def view_account(request):
+    if request.user.is_authenticated:
+        get_groups = ContestGroup.objects.filter(special_for_users=request.user)
+    else:
+        get_groups = []
+    groups = []
+    for group in get_groups:
+        groups.append({'name': group.name, 'id': group.id, 'url': f'../contest/{group.id}'})
+    return render(request, 'account.html', context={'groups': groups})
